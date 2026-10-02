@@ -1,0 +1,85 @@
+<!doctype html>
+<!-- 인포그래픽 폴백 템플릿 (800x1200, 2:3)
+     {{brand}}는 .env의 BRAND_NAME 값으로 치환됨. -->
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{keyword}} 인포그래픽</title>
+    <style>
+      :root {
+        --bg: #f7f6f2;
+        --fg: #1a1a1a;
+        --accent: #d97a3a;
+        --card: #ffffff;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        width: 800px;
+        height: 1200px;
+        font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+      }
+      .frame {
+        padding: 80px 70px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+      }
+      .header .label {
+        color: var(--accent);
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+      .header .title {
+        font-size: 50px;
+        font-weight: 800;
+        margin-top: 10px;
+        line-height: 1.2;
+        word-break: keep-all;
+      }
+      .points { display: flex; flex-direction: column; gap: 22px; flex: 1; }
+      .point {
+        background: var(--card);
+        border-left: 6px solid var(--accent);
+        padding: 24px 30px;
+        border-radius: 8px;
+        display: flex;
+        gap: 22px;
+        align-items: center;
+      }
+      .num {
+        font-size: 38px;
+        font-weight: 800;
+        color: var(--accent);
+        min-width: 60px;
+      }
+      .text { font-size: 24px; line-height: 1.4; font-weight: 600; }
+      .footer {
+        text-align: right;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <div class="header">
+        <div class="label">{{brand}} INSIGHT</div>
+        <div class="title">{{keyword}} 핵심 포인트</div>
+      </div>
+      <div class="points">
+        <!-- {{#points}} -->
+        <div class="point">
+          <div class="num">{{index}}</div>
+          <div class="text">{{point}}</div>
+        </div>
+        <!-- {{/points}} -->
+      </div>
+      <div class="footer">{{brand}}</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "description": "블로그 글에서 사용 금지되는 표현. quality-check.js가 이 파일을 소스로 사용. /setup-domain으로 산업별 추가 가능.",
+  "last_updated": "TEMPLATE",
+  "categories": {
+    "superlatives": {
+      "reason": "네이버 저품질 트리거 + 과장 광고",
+      "words": ["최고", "최저", "최상", "무조건", "100%", "절대", "완벽", "유일", "독보적"]
+    },
+    "ai_cliches": {
+      "reason": "AI 글 티가 나는 단골 표현 — 최소화",
+      "words": [
+        "다양한",
+        "효과적인",
+        "중요한",
+        "핵심적인",
+        "전반적인",
+        "궁극적인",
+        "혁신적인",
+        "최적의"
+      ]
+    },
+    "overused_conjunctions": {
+      "reason": "접속사 남발은 기계적 느낌을 줌",
+      "words": ["또한", "그리고", "더불어", "아울러", "뿐만 아니라", "이에 더하여"],
+      "max_ratio_percent": 5
+    },
+    "exaggerated_percent": {
+      "reason": "검증 불가 수치 과장",
+      "patterns": ["\\d{3,}%\\s*(증가|상승|향상)", "매출\\s*\\d+배"]
+    },
+    "domain_specific": {
+      "reason": "/setup-domain에서 산업별 금칙어 추가 영역. 예: 의료법, 금융감독, 광고심의 등.",
+      "words": []
+    }
+  }
+}

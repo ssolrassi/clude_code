@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- 인용 카드 폴백 템플릿 (800x800, 1:1)
+     {{brand}}는 .env의 BRAND_NAME 값으로 치환됨. -->
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{quote}}</title>
+    <style>
+      :root {
+        --bg: #f7f6f2;
+        --fg: #1a1a1a;
+        --accent: #d97a3a;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        width: 800px;
+        height: 800px;
+        font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+      }
+      .frame {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 90px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .marks {
+        position: absolute;
+        top: 30px;
+        left: 60px;
+        font-size: 220px;
+        line-height: 1;
+        color: var(--accent);
+        opacity: 0.18;
+        font-family: Georgia, serif;
+      }
+      .label {
+        font-size: 18px;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .quote {
+        font-family: 'Nanum Myeongjo', Georgia, serif;
+        font-size: 42px;
+        line-height: 1.45;
+        font-weight: 700;
+        word-break: keep-all;
+        margin-top: 30px;
+        z-index: 1;
+      }
+      .signature {
+        font-size: 20px;
+        font-weight: 600;
+        text-align: right;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <div class="marks">"</div>
+      <div>
+        <div class="label">{{keyword}}</div>
+        <div class="quote">{{quote}}</div>
+      </div>
+      <div class="signature">— {{brand}}</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+# 환경 변수
+.env
+.env.local
+.env.*.local
+
+# 회사 데이터 (Single Source of Truth — 절대 git에 올리지 않음)
+knowledge/brand-facts.md
+knowledge/conversion-benchmarks.md
+knowledge/banned-words.json
+knowledge/tone-samples/*.txt
+knowledge/tone-samples/*.md
+!knowledge/tone-samples/README.md
+knowledge/patterns/*.txt
+knowledge/patterns/*.md
+!knowledge/patterns/README.md
+
+# 생성된 결과물
+output/
+!output/.gitkeep
+
+# Node.js
+node_modules/
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 에디터
+.vscode/
+.idea/
+*.swp

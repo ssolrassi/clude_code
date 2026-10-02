@@ -1,0 +1,71 @@
+<!doctype html>
+<!-- 썸네일 폴백 템플릿 (1200x630, 16:9)
+     주 사용은 Nano Banana Pro 생성. 이 파일은 향후 Puppeteer 폴백용 골격.
+     {{brand}}는 .env의 BRAND_NAME 값으로 치환됨. -->
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{title}}</title>
+    <style>
+      :root {
+        --bg: #f7f6f2;
+        --fg: #1a1a1a;
+        --accent: #d97a3a;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        width: 1200px;
+        height: 630px;
+        font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+      }
+      .frame {
+        width: 100%;
+        height: 100%;
+        padding: 80px 90px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .tag {
+        font-size: 24px;
+        letter-spacing: 0.04em;
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .title {
+        font-size: 76px;
+        font-weight: 800;
+        line-height: 1.18;
+        max-width: 900px;
+        word-break: keep-all;
+      }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+      .brand {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+      }
+      .accent-bar {
+        width: 120px;
+        height: 6px;
+        background: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <div class="tag">{{keyword}}</div>
+      <div class="title">{{title}}</div>
+      <div class="footer">
+        <div class="accent-bar"></div>
+        <div class="brand">{{brand}}</div>
+      </div>
+    </div>
+  </body>
+</html>

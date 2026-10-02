@@ -1,0 +1,21 @@
+{
+  "name": "claude-code-blog-builder",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "research": "node scripts/research.js",
+    "images": "node scripts/generate-images.js",
+    "quality": "node scripts/quality-check.js",
+    "duplicate": "node scripts/duplicate-check.js",
+    "preview": "node scripts/preview.js",
+    "setup-tone": "node scripts/setup-tone-fetch.js",
+    "sanitize-check": "bash scripts/sanitize-check.sh"
+  },
+  "dependencies": {
+    "puppeteer-core": "^25.0.2"
+  }
+}
