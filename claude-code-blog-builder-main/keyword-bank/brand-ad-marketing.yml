@@ -1,0 +1,83 @@
+# 키워드 시드 — 브랜드 및 광고 마케팅 (쏠라씨)
+# /setup-domain 웹 검색 기반 선정. 네이버 API 미설정으로 competition은 unknown.
+# 문체: 해요체 정보 글
+category: brand-ad-marketing
+last_updated: 2026-10-16
+
+keywords:
+  - keyword: "퍼스널 브랜딩 시작하는 법"
+    intent: how-to
+    funnel_stage: awareness
+    priority: high
+    competition: unknown
+    suggested_pattern: null
+    longtails:
+      - "퍼스널 브랜드 성명서"
+      - "나다운 브랜딩"
+    last_used: null
+
+  - keyword: "브랜드 아이덴티티 만들기"
+    intent: how-to
+    funnel_stage: interest
+    priority: high
+    competition: unknown
+    suggested_pattern: null
+    longtails:
+      - "브랜드 컬러 정하기"
+      - "브랜드 톤앤매너"
+    last_used: null
+
+  - keyword: "광고 카피 쓰는 법"
+    intent: how-to
+    funnel_stage: interest
+    priority: high
+    competition: unknown
+    suggested_pattern: null
+    longtails:
+      - "헤드라인 쓰는 법"
+      - "짧은 카피 예시"
+    last_used: null
+
+  - keyword: "AI 광고 카피"
+    intent: trend
+    funnel_stage: interest
+    priority: medium
+    competition: unknown
+    suggested_pattern: null
+    longtails:
+      - "AI로 광고 문구 만들기"
+      - "AI 카피 검수"
+    last_used: null
+
+  - keyword: "AI 마케팅 활용"
+    intent: trend
+    funnel_stage: awareness
+    priority: medium
+    competition: unknown
+    suggested_pattern: null
+    longtails:
+      - "AI 마케팅 도구"
+      - "AI 콘텐츠 팩트체크"
+    last_used: null
+
+  - keyword: "블로그 브랜딩"
+    intent: how-to
+    funnel_stage: interest
+    priority: high
+    competition: unknown
+    suggested_pattern: null
+    longtails:
+      - "블로그 주제 정하기"
+      - "블로그 톤 정하기"
+    last_used: null
+
+  - keyword: "숏폼 광고 트렌드"
+    intent: trend
+    funnel_stage: awareness
+    priority: medium
+    competition: unknown
+    suggested_pattern: null
+    longtails:
+      - "릴스 광고"
+      - "숏폼 콘텐츠 기획"
+    last_used: null
