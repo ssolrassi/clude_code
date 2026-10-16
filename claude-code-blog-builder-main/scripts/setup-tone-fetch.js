@@ -34,19 +34,34 @@ function htmlToText(html) {
   // <script>, <style>, <noscript> 통째로 제거
   let s = html.replace(/<(script|style|noscript)[^>]*>[\s\S]*?<\/\1>/gi, ' ');
 
-  // 본문 영역 우선 추출 시도 (네이버 블로그 / 티스토리 / 워드프레스 공통 패턴)
-  const candidateSelectors = [
-    /<div[^>]*class="[^"]*se-main-container[^"]*"[^>]*>([\s\S]*?)<\/div>/i,    // 네이버 스마트에디터3
-    /<div[^>]*class="[^"]*post-view[^"]*"[^>]*>([\s\S]*?)<\/div>/i,             // 티스토리 일부 스킨
-    /<div[^>]*class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*?)<\/div>/i,         // 워드프레스
-    /<article[^>]*>([\s\S]*?)<\/article>/i,                                      // 시맨틱 article
-  ];
-
-  for (const re of candidateSelectors) {
-    const m = s.match(re);
-    if (m && m[1] && m[1].length > 500) {
-      s = m[1];
-      break;
+  // 네이버 블로그 스마트에디터 컨테이너 추출 (중첩 div 문제 해결)
+  const naverMarker = s.indexOf('se-main-container');
+  if (naverMarker !== -1) {
+    let sub = s.slice(naverMarker);
+    const endMarkers = ['class="post_footer"', 'class="_post_property"', 'id="naver-splugin"', 'class="se-footer"', 'id="commentCount"'];
+    for (const em of endMarkers) {
+      const idx = sub.indexOf(em);
+      if (idx !== -1) {
+        sub = sub.slice(0, idx);
+        break;
+      }
+    }
+    if (sub.length > 300) {
+      s = sub;
+    }
+  } else {
+    // 티스토리, 워드프레스, 일반 article 시도
+    const candidateSelectors = [
+      /<div[^>]*class="[^"]*post-view[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+      /<div[^>]*class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+      /<article[^>]*>([\s\S]*?)<\/article>/i,
+    ];
+    for (const re of candidateSelectors) {
+      const m = s.match(re);
+      if (m && m[1] && m[1].length > 500) {
+        s = m[1];
+        break;
+      }
     }
   }
 
@@ -57,7 +72,7 @@ function htmlToText(html) {
   // 모든 태그 제거
   s = s.replace(/<[^>]+>/g, '');
 
-  // HTML 엔티티 디코딩 (최소)
+  // HTML 엔티티 디코딩
   s = s
     .replace(/&nbsp;/g, ' ')
     .replace(/&amp;/g, '&')
@@ -88,22 +103,49 @@ function normalizeNaverBlog(url) {
 // ─── URL 페치 + 본문 추출 ─────────────────────────────────
 async function fetchOne(url) {
   const targetUrl = normalizeNaverBlog(url);
+  const browserHeaders = {
+    'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
+  };
+
   try {
     const res = await fetch(targetUrl, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; ClaudeCodeBlogBuilder/0.1; +setup-tone-fetch)',
-        'Accept': 'text/html,application/xhtml+xml',
-      },
+      headers: browserHeaders,
       redirect: 'follow',
     });
-    if (!res.ok) return { url, ok: false, error: `HTTP ${res.status}` };
-    const html = await res.text();
-    const text = htmlToText(html);
-    if (text.length < 200) return { url, ok: false, error: '본문 너무 짧음 (200자 미만)' };
-    return { url, ok: true, text, length: text.length };
+    if (res.ok) {
+      const html = await res.text();
+      const text = htmlToText(html);
+      if (text.length >= 200) {
+        return { url, ok: true, text, length: text.length };
+      }
+    }
   } catch (e) {
-    return { url, ok: false, error: e.message };
+    // 1차 실패 시 아래 fallback으로 이동
   }
+
+  // ─── 2차 시도: 오픈소스 Jina Reader (동적 렌더링 지원) ───
+  try {
+    const jinaRes = await fetch(`https://r.jina.ai/${targetUrl}`, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+        'Accept': 'text/plain',
+      },
+    });
+    if (jinaRes.ok) {
+      const jinaText = await jinaRes.text();
+      // Jina 헤더(URL, Title 등 메타데이터) 정리
+      let cleanText = jinaText.replace(/^Title:[\s\S]*?URL Source:.*?\n\n/i, '').trim();
+      if (cleanText.length >= 200) {
+        return { url, ok: true, text: cleanText, length: cleanText.length };
+      }
+    }
+  } catch (e) {
+    // Jina 실패 시
+  }
+
+  return { url, ok: false, error: '본문 수집 실패 (200자 미만 또는 접근 불가)' };
 }
 
 // ─── 메인 ────────────────────────────────────────────────
