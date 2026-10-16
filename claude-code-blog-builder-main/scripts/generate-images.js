@@ -46,7 +46,7 @@ const splitList = (s) =>
 // ────────────────────────────────────────────────
 // 브랜드 시스템
 // ────────────────────────────────────────────────
-const BRAND = process.env.BRAND_NAME   || '부자습관';
+const BRAND = process.env.BRAND_NAME   || '쏠라씨';
 const BG    = process.env.BRAND_BG_COLOR || '#F7F6F2';
 const FG    = process.env.BRAND_FG_COLOR || '#1A1A1A';
 const ACC   = process.env.BRAND_ACCENT   || '#D97A3A';
