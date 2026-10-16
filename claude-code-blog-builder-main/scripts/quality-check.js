@@ -6,6 +6,7 @@
 
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 function parseArgs(argv) {
   const args = {};
@@ -37,7 +38,25 @@ const stripHtml = (s) =>
     .replace(/\s+/g, ' ')
     .trim();
 
-const BANNED = ['최고', '최저', '최상', '무조건', '100%', '절대', '완벽'];
+const BASE_BANNED = ['최고', '최저', '최상', '무조건', '100%', '절대', '완벽'];
+
+// knowledge/banned-words.json의 최상급 + 도메인 금칙어를 합친다 (없으면 기본 목록만 사용)
+async function loadBannedWords() {
+  const path = join(dirname(fileURLToPath(import.meta.url)), '..', 'knowledge', 'banned-words.json');
+  try {
+    const { categories = {} } = JSON.parse(await readFile(path, 'utf8'));
+    return [
+      ...(categories.superlatives?.words || []),
+      ...(categories.domain_specific?.words || []),
+    ];
+  } catch {
+    return [];
+  }
+}
+
+const BANNED = [...new Set([...BASE_BANNED, ...(await loadBannedWords())])];
+// 금칙어를 포함하지만 허용하는 단어 (예: '완벽주의'는 '완벽'에 걸리지 않음)
+const ALLOWED = ['완벽주의'];
 const CONJUNCTIONS = ['또한', '그리고', '더불어', '아울러'];
 
 function check(text, raw, keyword) {
@@ -114,7 +133,8 @@ function check(text, raw, keyword) {
   });
 
   // 6. 금칙어
-  const hits = BANNED.filter((w) => text.includes(w));
+  const bannedText = ALLOWED.reduce((t, w) => t.split(w).join(' '), text);
+  const hits = BANNED.filter((w) => bannedText.includes(w));
   results.push({
     name: '최상급/금칙어',
     pass: hits.length === 0,
