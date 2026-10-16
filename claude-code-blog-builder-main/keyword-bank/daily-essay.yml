@@ -1,0 +1,72 @@
+# 키워드 시드 — 일상 생각/에세이 (쏠라씨)
+# /setup-domain 웹 검색 + 기존 발행 글 기반 선정. 네이버 API 미설정으로 competition은 unknown.
+# 문체: ~다 체 에세이
+category: daily-essay
+last_updated: 2026-10-16
+
+keywords:
+  - keyword: "미루는 습관"
+    intent: empathy
+    funnel_stage: awareness
+    priority: high
+    competition: unknown
+    suggested_pattern: null
+    longtails:
+      - "미루는 습관 고치는 법"
+      - "미루기 심리"
+    last_used: 2026-10-16  # 게으른 완벽주의 시리즈
+
+  - keyword: "완벽주의 미루기"
+    intent: empathy
+    funnel_stage: awareness
+    priority: high
+    competition: unknown
+    suggested_pattern: null
+    longtails:
+      - "게으른 완벽주의자"
+      - "완벽주의 극복"
+    last_used: 2026-10-16  # 게으른 완벽주의 시리즈
+
+  - keyword: "시작이 어려운 이유"
+    intent: empathy
+    funnel_stage: awareness
+    priority: medium
+    competition: unknown
+    suggested_pattern: null
+    longtails:
+      - "일단 시작하기"
+      - "작은 시작"
+    last_used: 2026-10-16  # 게으른 완벽주의 시리즈
+
+  - keyword: "실수에 대한 두려움"
+    intent: empathy
+    funnel_stage: awareness
+    priority: medium
+    competition: unknown
+    suggested_pattern: null
+    longtails:
+      - "실패가 두려울 때"
+      - "걱정 많은 사람"
+    last_used: null
+
+  - keyword: "블로그 시작기"
+    intent: experience
+    funnel_stage: awareness
+    priority: medium
+    competition: unknown
+    suggested_pattern: null
+    longtails:
+      - "블로그 첫 글"
+      - "블로그 운영 일기"
+    last_used: 2026-10-16  # 게으른 완벽주의 1편
+
+  - keyword: "나를 알아가는 기록"
+    intent: empathy
+    funnel_stage: awareness
+    priority: high
+    competition: unknown
+    suggested_pattern: null
+    longtails:
+      - "자기 이해"
+      - "기록하는 습관"
+    last_used: null
